@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  mysqlicebe:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: icebe
+      MYSQL_USER: localuser
+      MYSQL_PASSWORD: localpws
+      MYSQL_ROOT_PASSWORD: localroot
+      MYSQL_HOST: localhost
+    volumes:
+      - ./mysql:/var/lib/mysql
