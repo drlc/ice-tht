@@ -2,9 +2,16 @@ package it.daraloca.ice.takehometask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Import;
 
+import it.daraloca.ice.takehometask.configuration.ApiCnfg;
+import it.daraloca.ice.takehometask.configuration.DataCnfg;
+import it.daraloca.ice.takehometask.configuration.ServiceCnfg;
+
+@Import({ ApiCnfg.class, DataCnfg.class, ServiceCnfg.class})
 @SpringBootApplication
-public class TakehometaskApplication {
+public class TakehometaskApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TakehometaskApplication.class, args);
