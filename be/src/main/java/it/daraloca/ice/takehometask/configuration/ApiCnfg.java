@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan(basePackages = { "it.daraloca.ice.takehometask.endpoint" })
 public class ApiCnfg {
-    
+
 }
