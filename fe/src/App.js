@@ -5,7 +5,7 @@ import Login from "./screens/login/Login";
 
 function App() {
   const [activeView, setActiveView] = useState("list");
-  const [loggedUser, setLoggedUser] = useState("");
+  const [loggedUser, setLoggedUser] = useState("c2a3fb6a-855a-4082-8037-e41dd1878711");
   // c2a3fb6a-855a-4082-8037-e41dd1878711
 
   let view = <Login confirmUserId={setLoggedUser} />;

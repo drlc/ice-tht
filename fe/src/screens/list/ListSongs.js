@@ -67,7 +67,7 @@ export default function ListSongs({ goToView, userId }) {
                 {loading ? (
                   "Loading..."
                 ) : (
-                  <Button variant="contained">More</Button>
+                  <Button variant="contained" onClick={setPage(page+1)}>More</Button>
                 )}
               </TableCell>
             </TableRow> : null}
