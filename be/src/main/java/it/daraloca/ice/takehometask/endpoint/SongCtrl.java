@@ -3,10 +3,14 @@ package it.daraloca.ice.takehometask.endpoint;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +36,23 @@ public class SongCtrl {
     @ResponseStatus(code = HttpStatus.OK)
     public UUID create(HttpServletRequest request, @RequestBody SongDTO data) {
         return service.create(data);
+    }
+
+    /**
+     * This API return a page of the elements requested.
+     * 
+     * @param request         the http request
+     * @param page            the pageable
+     * @param userId          the user id
+     * @return the page of requested elements
+     */
+    @GetMapping
+    @ResponseStatus(code = HttpStatus.OK)
+    public Iterable<SongDTO> findAll(
+            HttpServletRequest request,
+            @PageableDefault(size = 10, page = 0) Pageable page,
+            @RequestParam(name = "user-id", required = true) UUID userId) {
+        return service.findAll( page, userId);
     }
     
 }

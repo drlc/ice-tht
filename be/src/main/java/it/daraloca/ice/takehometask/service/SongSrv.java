@@ -1,16 +1,25 @@
 package it.daraloca.ice.takehometask.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
+import com.querydsl.core.BooleanBuilder;
 
 import it.daraloca.ice.takehometask.data.album.Album;
 import it.daraloca.ice.takehometask.data.artist.Artist;
 import it.daraloca.ice.takehometask.data.song.ISongRepo;
+import it.daraloca.ice.takehometask.data.song.QSong;
 import it.daraloca.ice.takehometask.data.song.Song;
 import it.daraloca.ice.takehometask.data.genre.Genre;
 import it.daraloca.ice.takehometask.data.user.User;
@@ -23,8 +32,12 @@ import jakarta.validation.Valid;
 @Service
 public class SongSrv extends ASrv {
 
+    private static final QSong QS = QSong.song;
+
     @Autowired
     private ISongRepo repo;
+    @Autowired
+    private ModelMapper mapper;
     @PersistenceContext
     private EntityManager em;
 
@@ -56,6 +69,16 @@ public class SongSrv extends ASrv {
 
         Song result = repo.save(entity);
         return result.getId();
+    }
+
+    public Iterable<SongDTO> findAll(Pageable page, UUID userId) {
+        BooleanBuilder condition = new BooleanBuilder(QS.user.id.eq(userId));
+        Page<Song> iterab = repo.findAll(condition, page);
+        List<SongDTO> list = new ArrayList<>();
+        iterab.forEach(el -> {
+            list.add(mapper.map(el, SongDTO.class));
+        });
+        return new PageImpl<>(list, iterab.getPageable(), iterab.getTotalElements());
     }
     
 }

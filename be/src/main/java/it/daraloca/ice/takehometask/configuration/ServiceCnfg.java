@@ -1,5 +1,6 @@
 package it.daraloca.ice.takehometask.configuration;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,5 +18,10 @@ public class ServiceCnfg {
         return validator;
     }
 
-    
+
+    @Bean
+    public ModelMapper mapper() {
+        ModelMapper mapper = new ModelMapper();
+        return mapper;
+    }
 }
