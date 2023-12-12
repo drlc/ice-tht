@@ -23,6 +23,7 @@ import it.daraloca.ice.takehometask.data.song.QSong;
 import it.daraloca.ice.takehometask.data.song.Song;
 import it.daraloca.ice.takehometask.data.genre.Genre;
 import it.daraloca.ice.takehometask.data.user.User;
+import it.daraloca.ice.takehometask.dto.DetailedSongDTO;
 import it.daraloca.ice.takehometask.dto.SongDTO;
 import it.daraloca.ice.takehometask.dto.ValidationProfile;
 import jakarta.persistence.EntityManager;
@@ -82,9 +83,23 @@ public class SongSrv extends ASrv {
         Page<Song> iterab = repo.findAll(condition, page);
         List<SongDTO> list = new ArrayList<>();
         iterab.forEach(el -> {
-            list.add(mapper.map(el, SongDTO.class));
+            SongDTO dto = mapper.map(el, SongDTO.class);
+            for(Genre genre : el.getGenres()) {
+                dto.getGenreIds().add(genre.getId());
+            }
+            list.add(dto);
         });
         return new PageImpl<>(list, iterab.getPageable(), iterab.getTotalElements());
+    }
+
+    public DetailedSongDTO read(UUID songId) {
+        Song entity = repo.findById(songId).orElseThrow(() -> new IllegalArgumentException("Song not found"));
+        DetailedSongDTO result = mapper.map(entity, DetailedSongDTO.class);
+        for(Genre genre : entity.getGenres()) {
+            result.getGenreIds().add(genre.getId());
+            result.getGenreNames().add(genre.getName());
+        }
+        return result;
     }
     
 }

@@ -18,7 +18,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@ToString(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true, callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor

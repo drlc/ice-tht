@@ -30,6 +30,7 @@ public class InitDBSrv {
     @PostConstruct
     public void init(){
         if(userRepo.count() > 0) {
+            System.out.println("InitDBSrv.init() - DB already initialized");
             return;
         }
         User user = User.builder().name("user-one").build();
@@ -44,12 +45,12 @@ public class InitDBSrv {
         Genre genreTwo = Genre.builder().name("genre-two").build();
         genreRepo.save(genreOne);
         genreRepo.save(genreTwo);
-        System.out.println("InitDBSrv.init() - user: " + user);
-        System.out.println("InitDBSrv.init() - album: " + album);
-        System.out.println("InitDBSrv.init() - artistOne: " + artistOne);
-        System.out.println("InitDBSrv.init() - artistTwo: " + artistTwo);
-        System.out.println("InitDBSrv.init() - genreOne: " + genreOne);
-        System.out.println("InitDBSrv.init() - genreTwo: " + genreTwo);
+        System.out.println("InitDBSrv.init() - user: " + user.toString());
+        System.out.println("InitDBSrv.init() - album: " + album.toString());
+        System.out.println("InitDBSrv.init() - artistOne: " + artistOne.toString());
+        System.out.println("InitDBSrv.init() - artistTwo: " + artistTwo.toString());
+        System.out.println("InitDBSrv.init() - genreOne: " + genreOne.toString());
+        System.out.println("InitDBSrv.init() - genreTwo: " + genreTwo.toString());
         
     }
     
