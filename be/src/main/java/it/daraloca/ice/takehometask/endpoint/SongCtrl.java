@@ -42,7 +42,7 @@ public class SongCtrl {
      * This API return a page of the elements requested.
      * 
      * @param request         the http request
-     * @param page            the pageable
+     * @param page            the pageable, with page info and sorting
      * @param userId          the user id
      * @return the page of requested elements
      */
@@ -56,5 +56,6 @@ public class SongCtrl {
             @RequestParam(name = "artist-name", required = false) String artistName) {
         return service.findAll(page, userId, year, artistName);
     }
+    
     
 }
