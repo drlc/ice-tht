@@ -71,8 +71,14 @@ public class SongSrv extends ASrv {
         return result.getId();
     }
 
-    public Iterable<SongDTO> findAll(Pageable page, UUID userId) {
+    public Iterable<SongDTO> findAll(Pageable page, UUID userId, Integer year, String artistName) {
         BooleanBuilder condition = new BooleanBuilder(QS.user.id.eq(userId));
+        if(year != null) {
+            condition.and(QS.year.eq(year));
+        }
+        if(artistName != null) {
+            condition.and(QS.artist.name.eq(artistName));
+        }
         Page<Song> iterab = repo.findAll(condition, page);
         List<SongDTO> list = new ArrayList<>();
         iterab.forEach(el -> {

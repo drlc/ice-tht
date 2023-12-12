@@ -51,8 +51,10 @@ public class SongCtrl {
     public Iterable<SongDTO> findAll(
             HttpServletRequest request,
             @PageableDefault(size = 10, page = 0) Pageable page,
-            @RequestParam(name = "user-id", required = true) UUID userId) {
-        return service.findAll( page, userId);
+            @RequestParam(name = "user-id", required = true) UUID userId,
+            @RequestParam(name = "year", required = false) Integer year,
+            @RequestParam(name = "artist-name", required = false) String artistName) {
+        return service.findAll(page, userId, year, artistName);
     }
     
 }
