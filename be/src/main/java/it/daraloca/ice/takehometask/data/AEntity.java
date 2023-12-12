@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -12,6 +13,7 @@ import jakarta.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +30,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 // JPA
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class AEntity implements Serializable {
 
     private static final long serialVersionUID = -7464065571558253163L;
@@ -42,9 +45,5 @@ public class AEntity implements Serializable {
     @CreatedDate
     @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
     private Date createdDate;
-
-    @LastModifiedDate
-    @Temporal(jakarta.persistence.TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
     
 }

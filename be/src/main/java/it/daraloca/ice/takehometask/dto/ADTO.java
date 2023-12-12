@@ -26,7 +26,5 @@ public abstract class ADTO implements Serializable {
     private UUID id;
     @ToString.Include
     private Date createdDate;
-    @ToString.Include
-    private Date lastModifiedDate;
     
 }
