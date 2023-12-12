@@ -4,14 +4,13 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.HashSet;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -28,7 +27,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -54,8 +52,7 @@ public class Song extends AEntity {
     private UUID id;
 
     @ToString.Include
-    @Nonnull
-    @NonNull
+    @NotNull
     private String name;
     @ToString.Include
     private Integer year;
@@ -63,15 +60,12 @@ public class Song extends AEntity {
     private Integer length;
 
     @ManyToOne
-    @Nonnull
-    @NonNull
+    @NotNull
     private User user;
     @ManyToOne
-    @Nonnull
-    @NonNull
+    @NotNull
     private Artist artist;
     @ManyToOne
-    @Nullable
     private Album album;
     @ManyToMany
     @Builder.Default

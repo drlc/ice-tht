@@ -53,6 +53,12 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<classifier>jakarta</classifier>
@@ -64,6 +70,7 @@
 			<classifier>jakarta</classifier>
 			<version>5.0.0</version>
 		</dependency>
+
 
 
 		<dependency>

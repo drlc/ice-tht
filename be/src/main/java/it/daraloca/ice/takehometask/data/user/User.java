@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -49,8 +49,7 @@ public class User extends AEntity {
     private UUID id;
 
     @ToString.Include
-    @Nonnull
-    @NonNull
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "user")
