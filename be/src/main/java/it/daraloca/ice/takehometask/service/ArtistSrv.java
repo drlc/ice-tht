@@ -11,34 +11,34 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
 
-import it.daraloca.ice.takehometask.data.genre.Genre;
-import it.daraloca.ice.takehometask.data.genre.IGenreRepo;
-import it.daraloca.ice.takehometask.data.genre.QGenre;
-import it.daraloca.ice.takehometask.dto.GenreDTO;
+import it.daraloca.ice.takehometask.data.artist.Artist;
+import it.daraloca.ice.takehometask.data.artist.IArtistRepo;
+import it.daraloca.ice.takehometask.data.artist.QArtist;
+import it.daraloca.ice.takehometask.dto.ArtistDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Service
-public class GenreSrv {
+public class ArtistSrv {
 
-    private static final QGenre QG = QGenre.genre;
+    private static final QArtist QA = QArtist.artist;
 
     @Autowired
-    private IGenreRepo repo;
+    private IArtistRepo repo;
     @Autowired
     private ModelMapper mapper;
     @PersistenceContext
     private EntityManager em;
 
-    public Iterable<GenreDTO> findAll(Pageable page, String name) {
+    public Iterable<ArtistDTO> findAll(Pageable page, String name) {
         BooleanBuilder condition = new BooleanBuilder();
         if(name != null) {
-            condition.and(QG.name.startsWithIgnoreCase(name));
+            condition.and(QA.name.startsWithIgnoreCase(name));
         }
-        Page<Genre> iterab = repo.findAll(condition, page);
-        List<GenreDTO> list = new ArrayList<>();
+        Page<Artist> iterab = repo.findAll(condition, page);
+        List<ArtistDTO> list = new ArrayList<>();
         iterab.forEach(el -> {
-            GenreDTO dto = mapper.map(el, GenreDTO.class);
+            ArtistDTO dto = mapper.map(el, ArtistDTO.class);
             list.add(dto);
         });
         return new PageImpl<>(list, iterab.getPageable(), iterab.getTotalElements());

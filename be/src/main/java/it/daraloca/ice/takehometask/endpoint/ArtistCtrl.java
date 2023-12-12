@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.daraloca.ice.takehometask.dto.GenreDTO;
-import it.daraloca.ice.takehometask.service.GenreSrv;
+import it.daraloca.ice.takehometask.dto.ArtistDTO;
+import it.daraloca.ice.takehometask.service.ArtistSrv;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/genre")
-public class GenreCtrl {
+@RequestMapping("/api/artist")
+public class ArtistCtrl {
 
     @Autowired
-    private GenreSrv service;
+    private ArtistSrv service;
     
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Iterable<GenreDTO> findAll(
+    public Iterable<ArtistDTO> findAll(
             HttpServletRequest request,
             @PageableDefault(size = 10, page = 0) Pageable page,
             @RequestParam(name = "name", required = false) String name) {
