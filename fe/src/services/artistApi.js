@@ -1,6 +1,6 @@
 import { Api } from './api'
 
-class SongService extends Api {
+class ArtistService extends Api {
     constructor() {
         super({
             url: process.env.REACT_APP_API_URL,
@@ -10,11 +10,11 @@ class SongService extends Api {
     list = (query) => {
         const params = new URLSearchParams()
         this.appendParamsFromObject(params, query)
-        return this.axiosInstance.get('song?' + params.toString()).then((res) => {
+        return this.axiosInstance.get('artist?' + params.toString()).then((res) => {
             return res.data
         })
     }
 }
 
-const songApi = new SongService()
-export default songApi
+const artistApi = new ArtistService()
+export default artistApi
