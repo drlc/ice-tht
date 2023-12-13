@@ -11,15 +11,19 @@ export default function Login({ confirmUserId }) {
   return (
     <div className="container">
       <Paper className="paper">
-        <h1>Login</h1>
+        <h2>Login</h2>
         <FormControl>
-          <TextField id="outlined-basic" label="User Id" variant="outlined" onChange={(ev) => {
-            setUserId(ev.target.value);
-          }}/>
-          <Button
-            variant="contained"
-            onClick={() => confirmUserId(userId)}
-          >
+          <TextField
+            id="outlined-basic"
+            label="User Id"
+            variant="outlined"
+            margin="normal"
+            value={userId}
+            onChange={(ev) => {
+              setUserId(ev.target.value);
+            }}
+          />
+          <Button variant="contained" onClick={() => confirmUserId(userId)}>
             Login
           </Button>
         </FormControl>

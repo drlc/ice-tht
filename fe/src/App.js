@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ListSongs from "./screens/list/ListSongs";
 import CreateSong from "./screens/create/CreateSong";
 import Login from "./screens/login/Login";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 function App() {
@@ -29,17 +30,20 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Music Library</h1>
-        <h3>user: {loggedUser}</h3>
-        {loggedUser && (
-          <Button
-            variant="contained"
-            onClick={() =>
-              setActiveView(activeView === "create" ? "list" : "create")
-            }
-          >
-            {activeView === "create" ? "Song List" : "Add new Song"}
-          </Button>
-        )}
+        <Box sx={{ display: "flex", justifyContent: 'space-between' }}>
+          <h3>user: {loggedUser}</h3>
+          {loggedUser && (
+            <Button
+              variant="contained"
+              margin="normal"
+              onClick={() =>
+                setActiveView(activeView === "create" ? "list" : "create")
+              }
+            >
+              {activeView === "create" ? "Song List" : "Add new Song"}
+            </Button>
+          )}
+        </Box>
       </header>
       <main>{view}</main>
     </div>
