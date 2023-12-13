@@ -19,7 +19,7 @@ function App() {
       // case 'detail':
       //   return <Detail setActiveView={setActiveView} />
       case "create":
-        view = <CreateSong goToView={setActiveView} />;
+        view = <CreateSong goToView={setActiveView} userId={loggedUser} />;
         break;
       default:
         view = "Loading...";
