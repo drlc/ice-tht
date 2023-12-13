@@ -16,7 +16,6 @@ class SongService extends Api {
     }
 
     create = (body) => {
-        console.log(body)
         return this.axiosInstance.post('song', body).then((res) => {
             return res.data
         })

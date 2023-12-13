@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import songApi from "../../services/songApi";
 import artistApi from "../../services/artistApi";
 import albumApi from "../../services/albumApi";
+import genreApi from "../../services/genreApi";
 import {
   Paper,
   Button,
@@ -12,7 +13,22 @@ import {
   FormControl,
   Input,
   Autocomplete,
+  Select,
+  OutlinedInput,
+  Chip,
+  MenuItem,
 } from "@mui/material";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 export default function CreateSong({ goToView, userId }) {
   const [possibleArtists, setPossibleArtists] = useState([]);
@@ -27,7 +43,7 @@ export default function CreateSong({ goToView, userId }) {
   const [songYear, setSongYear] = useState(2023);
   const [songLength, setSongLength] = useState(0);
   const [artist, setArtist] = useState(null);
-  const [genre, setGenre] = useState(null);
+  const [genres, setGenres] = useState([]);
   const [album, setAlbum] = useState(null);
 
   useEffect(() => {
@@ -71,6 +87,24 @@ export default function CreateSong({ goToView, userId }) {
       });
   }, [searchedAlbum]);
 
+  useEffect(() => {
+    let call = async () => {
+      let hasMorePages = true;
+      let params = { page: 0, size: 500 };
+      let possibleGenresNew = [];
+      while (hasMorePages) {
+        let res = await genreApi.list(params);
+        possibleGenresNew = possibleGenresNew.concat(res.content);
+        hasMorePages = res.isLast === false;
+        if (hasMorePages) {
+          params.page = params.page + 1;
+        }
+      }
+      setPossibleGenres(possibleGenresNew);
+    };
+    call();
+  }, []);
+
   let add = () => {
     if (isDisabled) {
       return;
@@ -85,6 +119,9 @@ export default function CreateSong({ goToView, userId }) {
     if (album) {
       body.albumId = album.id;
     }
+    if (genres.length > 0) {
+      body.genreIds = genres;
+    }
     songApi
       .create(body)
       .then((res) => {
@@ -94,6 +131,19 @@ export default function CreateSong({ goToView, userId }) {
       .finally(() => {
         setIsSending(false);
       });
+  };
+
+  const handleGenreChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    if(genres.find((genre) => genre === value.id)){
+      let newGenres = [...genres];
+      newGenres.splice(newGenres.indexOf(value.id), 1);
+      setGenres([...newGenres]);
+    } else {
+      setGenres([...genres, value.id]);
+    }
   };
 
   return (
@@ -166,10 +216,34 @@ export default function CreateSong({ goToView, userId }) {
               setSearchedAlbum(newValue);
             }}
             onChange={(ev, newValue) => {
-              setAlbum(ev.target.value);
+              setAlbum(newValue);
             }}
             renderInput={(params) => <TextField {...params} label="Album" />}
           />
+        </FormControl>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <Select
+            onChange={handleGenreChange}
+            value={genres}
+            input={<OutlinedInput />}
+            renderValue={(selected) => {
+              return (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                  {selected.map((value) => {
+                    let itemGenre = possibleGenres.find((genre) => genre.id === value);
+                    return <Chip key={itemGenre.id} label={itemGenre.name} />
+                  })}
+                </Box>
+              );
+            }}
+            MenuProps={MenuProps}
+          >
+            {possibleGenres.map((genre) => (
+              <MenuItem key={genre.id} value={genre}>
+                {genre.name}
+              </MenuItem>
+            ))}
+          </Select>
         </FormControl>
         <FormControl>
           <Button variant="contained" disabled={isDisabled} onClick={add}>
