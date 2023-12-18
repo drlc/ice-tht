@@ -1,16 +1,13 @@
-import "./CreateSong.css";
+import "./DetailSong.css";
 
 import { Paper, Box } from "@mui/material";
 import UpsertSongForm from "../../components/organism/UpsertSongForm";
 
-export default function CreateSong({ goToView, userId }) {
-  let onSubmit = (body) => {
-    goToView("list");
-  };
+export default function CreateSong({ goToView, songId, userId }) {
 
   return (
     <Paper className="paper">
-      <h4>Add new song</h4>
+      <h4>Detail</h4>
       <Box
         sx={{
           display: "flex",
@@ -21,10 +18,7 @@ export default function CreateSong({ goToView, userId }) {
           margin: "auto",
         }}
       >
-        <UpsertSongForm
-          onSubmit={onSubmit}
-          userId={userId}
-        />
+        <UpsertSongForm onSubmit={null} userId={userId} songId={songId} />
       </Box>
     </Paper>
   );
