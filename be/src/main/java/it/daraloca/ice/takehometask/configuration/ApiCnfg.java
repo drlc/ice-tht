@@ -21,7 +21,7 @@ public class ApiCnfg{
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/*").allowedOrigins(allowOrigin);
+				registry.addMapping("/api/**").allowedOrigins(allowOrigin);
 			}
 		};
 	}

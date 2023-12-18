@@ -31,6 +31,7 @@ public class InitDBSrv {
     public void init(){
         if(userRepo.count() > 0) {
             System.out.println("InitDBSrv.init() - DB already initialized");
+            userRepo.findAll().forEach(System.out::println);
             return;
         }
         User user = User.builder().name("user-one").build();
