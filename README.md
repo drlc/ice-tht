@@ -10,9 +10,9 @@ This repo contains the code for the THT Unfinished.
 - The BE does not have a proper logging mechanism, but can be implemented in the future
 - Data like artists, albums and genres are inserted directly in DB, but in the future a different way to add them can be implemented
 - In order to add a song, the artist, genre and album should already exists
+- I have limited expereice in FE tests, so I did not implement any tests for the FE
 
-Due to the lack of time most of the frontend features are not implemented, even though the backend is ready to support them.
-Furthermore the frontend is really simplyfy and does not have any styling. 
+The frontend is simplyfied and does not have any styling. Furthermore I prefer not to use a state management library like Redux or use Contexts, or other libraries (router, typescript instead of plain js, i18n, ag-grid..), to keep the code as simple as possible.
 
 
 
