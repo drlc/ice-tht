@@ -20,6 +20,12 @@ class SongService extends Api {
             return res.data
         })
     }
+
+    get = (id) => {
+        return this.axiosInstance.get('song/' + id).then((res) => {
+            return res.data
+        })
+    }
 }
 
 const songApi = new SongService()
